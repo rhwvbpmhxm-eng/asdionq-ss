@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易记账程序</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>简易记账程序</h1>
+        </header>
+        
+        <!-- 记账表单 -->
+        <section class="form-section">
+            <h2>添加收支记录</h2>
+            <form id="accountingForm">
+                <div class="form-group">
+                    <label for="type">收支类型：</label>
+                    <select id="type" required>
+                        <option value="杂费">杂费</option>
+                        <option value="运费">运费</option>
+                        <option value="生活费">生活费</option>
+                        <option value="结余">结余</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">收支日期：</label>
+                    <input type="date" id="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">内容：</label>
+                    <input type="text" id="content" placeholder="请输入收支内容" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="method">交易方式：</label>
+                    <select id="method" required>
+                        <option value="现金">现金</option>
+                        <option value="支付宝">支付宝</option>
+                        <option value="微信">微信</option>
+                        <option value="银行卡">银行卡</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">金额：</label>
+                    <input type="number" id="amount" step="0.01" placeholder="请输入金额" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">保存记录</button>
+            </form>
+            
+            <!-- 数据导出导入功能 -->
+            <div class="data-operations">
+                <h3>数据管理</h3>
+                <div class="data-buttons">
+                    <button type="button" id="exportBtn" class="data-btn export-btn">导出数据</button>
+                    <label for="importFile" class="data-btn import-btn">导入数据</label>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                    <button type="button" id="clearBtn" class="data-btn clear-btn">清空数据</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 统计区域 -->
+        <section class="stats-section">
+            <h2>收支统计</h2>
+            <div class="stats-tabs">
+                <button class="tab-btn active" data-period="month">当月统计</button>
+                <button class="tab-btn" data-period="year">当年统计</button>
+                <button class="tab-btn" data-period="all">历年统计</button>
+            </div>
+            
+            <div class="stats-content">
+                <div id="month-stats" class="stats-panel active">
+                    <h3>当月统计</h3>
+                    <div class="stats-summary">
+                        <div class="stat-item">
+                            <span class="stat-label">总收入：</span>
+                            <span class="stat-value income" id="month-income">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">总支出：</span>
+                            <span class="stat-value expense" id="month-expense">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">结余：</span>
+                            <span class="stat-value balance" id="month-balance">¥0.00</span>
+                        </div>
+                    </div>
+                    <div class="records-list" id="month-records"></div>
+                </div>
+                
+                <div id="year-stats" class="stats-panel">
+                    <h3>当年统计</h3>
+                    <div class="stats-summary">
+                        <div class="stat-item">
+                            <span class="stat-label">总收入：</span>
+                            <span class="stat-value income" id="year-income">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">总支出：</span>
+                            <span class="stat-value expense" id="year-expense">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">结余：</span>
+                            <span class="stat-value balance" id="year-balance">¥0.00</span>
+                        </div>
+                    </div>
+                    <div class="records-list" id="year-records"></div>
+                </div>
+                
+                <div id="all-stats" class="stats-panel">
+                    <h3>历年统计</h3>
+                    <div class="stats-summary">
+                        <div class="stat-item">
+                            <span class="stat-label">总收入：</span>
+                            <span class="stat-value income" id="all-income">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">总支出：</span>
+                            <span class="stat-value expense" id="all-expense">¥0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">结余：</span>
+                            <span class="stat-value balance" id="all-balance">¥0.00</span>
+                        </div>
+                    </div>
+                    <div class="records-list" id="all-records"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
